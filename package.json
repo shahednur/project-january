@@ -2,7 +2,7 @@
   "name": "project-january",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer": "6.5.1",
     "babel-core": "6.17.0",
     "babel-eslint": "7.1.1",
@@ -44,9 +44,7 @@
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "1.0.0"
-  },
-  "dependencies": {
+    "whatwg-fetch": "1.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
