@@ -6,17 +6,16 @@ export default {
   main: {
     path: '/',
     render: () =>
-      <div>1</div>
+      <div>home</div>
   },
   users: {
     path: '/users',
     render: () =>
-      <div>2</div>
+      <div>users</div>
   },
   userDetails: {
     path: '/users/:userid',
     render: ({userid}:{userid:string}) =>
-      <div>{userid}</div>
+      <div>user: {userid}</div>
   },
-
 };
