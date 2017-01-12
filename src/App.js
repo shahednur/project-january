@@ -1,10 +1,11 @@
+//@flow
+
 import React, { Component } from 'react';
 import R from 'ramda'
 import {matchPath} from './lib/router'
 import routes from './routes'
-import createHistory from 'history/createBrowserHistory'
-
-const history = createHistory()
+import history from './history'
+import Navigation from './components/Navigation'
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
 
     return (
       <div>
+        <Navigation/>
         <ComponentToRender {...matching.params}/>
       </div>
     );
