@@ -1,27 +1,30 @@
 //@flow
 
-import React from 'react'
+import React from 'react';
 
 export default {
   home: {
     path: '/',
-    render: () =>
+    render: () => (
       <div>
         home
       </div>
+    ),
   },
   users: {
     path: '/users',
-    render: () =>
+    render: () => (
       <div>
         users
       </div>
+    ),
   },
   userDetails: {
     path: '/users/:userid',
-    render: ({userid}:{userid:string}) =>
+    render: ({ userid }: { userid: string }) => (
       <div>
         user: {userid}
       </div>
+    ),
   },
-};
+}

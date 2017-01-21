@@ -1,34 +1,34 @@
 //@flow
 
 import React, { Component } from 'react';
-import R from 'ramda'
-import {matchPath} from './lib/router'
-import routes from './routes'
-import history from './history'
-import Navigation from './components/Navigation'
+import R from 'ramda';
+import { matchPath } from './lib/router';
+import routes from './routes';
+import history from './history';
+import Navigation from './components/Navigation';
 
 class App extends Component {
   render() {
     const pathname = history.location.pathname;
     console.log(history.location);
 
-    const route = R.find((pair)=>matchPath(pathname, pair[1].path))(
-      R.reverse(R.toPairs(routes))
+    const route = R.find(pair => matchPath(pathname, pair[1].path))(
+      R.reverse(R.toPairs(routes)),
     );
 
-    if(!route) {
-      return <div>404</div>
+    if (!route) {
+      return <div>404</div>;
     }
 
-    console.log('routeMatch', route[0])
+    console.log('routeMatch', route[0]);
 
-    const matching = matchPath(pathname, route[1].path)
-    const ComponentToRender = route[1].render
+    const matching = matchPath(pathname, route[1].path);
+    const ComponentToRender = route[1].render;
 
     return (
       <div>
-        <Navigation/>
-        <ComponentToRender {...matching.params}/>
+        <Navigation />
+        <ComponentToRender {...matching.params} />
       </div>
     );
   }
