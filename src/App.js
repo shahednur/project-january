@@ -4,13 +4,12 @@ import React, { Component } from 'react';
 import R from 'ramda';
 import { matchPath } from './lib/router';
 import routes from './routes';
-import history from './routes/history';
 import Navigation from './components/Navigation';
 
 class App extends Component {
   render() {
-    const pathname = history.location.pathname;
-    console.log(history.location);
+    const pathname = this.props.location.pathname;
+    console.log(this.props.location);
 
     const route = R.find(
       pair => matchPath(pathname, pair[1].path),

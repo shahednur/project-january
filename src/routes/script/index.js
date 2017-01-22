@@ -37,19 +37,19 @@ import Link from '../Link';
 `;
 
   const genNoParamsLinkFunc = route =>
-    `(args: $Exact<{}>) => {
+    `({children}: $Exact<{ children?: any }>) => {
     const LinkComp = Link('${route}');
-    return <LinkComp />;
+    return <LinkComp>{children}</LinkComp>;
   };`;
 
   const genWithParamsLinkFunc = (route, params) => `(
-    { params }: { params: $Exact<${genObjectAnnotation(
+    { params, children }: $Exact<{ params: $Exact<${genObjectAnnotation(
     params,
-  )}> },
+  )}>, children?: any }>,
   ) =>
     {
-      const LinkComp = Link('userDetails', params);
-      return <LinkComp />;
+      const LinkComp = Link('${route}', params);
+      return <LinkComp>{children}</LinkComp>;
     };`;
 
   const genLinkFunc = (route, params) =>

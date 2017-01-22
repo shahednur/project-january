@@ -3,20 +3,32 @@
 import React from 'react';
 import Link from '../Link';
 
-const Link_home = (args: $Exact<{}>) => {
-  const LinkComp = Link('home');
-  return <LinkComp />;
-};
-const Link_users = (args: $Exact<{}>) => {
-  const LinkComp = Link('users');
-  return <LinkComp />;
-};
+const Link_home = (
+  { children }: $Exact<{ children?: any }>,
+) =>
+  {
+    const LinkComp = Link('home');
+    return <LinkComp>{children}</LinkComp>;
+  };
+const Link_users = (
+  { children }: $Exact<{ children?: any }>,
+) =>
+  {
+    const LinkComp = Link('users');
+    return <LinkComp>{children}</LinkComp>;
+  };
 const Link_userDetails = (
-  { params }: { params: $Exact<{ userid: string }> },
+  {
+    params,
+    children,
+  }: $Exact<{
+    params: $Exact<{ userid: string }>,
+    children?: any,
+  }>,
 ) =>
   {
     const LinkComp = Link('userDetails', params);
-    return <LinkComp />;
+    return <LinkComp>{children}</LinkComp>;
   };
 
 export default {

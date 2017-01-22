@@ -1,6 +1,7 @@
 //@flow
 
 import React from 'react';
+import R from 'ramda';
 import history from './history';
 import routes from './';
 
@@ -9,12 +10,19 @@ const isLeftClickEvent = () => true;
 
 type routesNamesT = $Keys<typeof routes>;
 
-type Props = {|
-  search?: string,
-  children?: any,
-|};
+type Props = {| search?: string, children?: any |};
 
-export default (to: routesNamesT, params:any) =>
+const substituteParams = (pathName, params) => {
+  let finalPathName = pathName;
+  R.forEach(([ paramName, value ]) => {
+    finalPathName = finalPathName
+      .split(':' + paramName)
+      .join(value);
+  })(R.toPairs(params));
+  return finalPathName;
+};
+
+export default (to: routesNamesT, params: any) =>
   class Link extends React.Component {
     props: Props;
 
@@ -23,19 +31,22 @@ export default (to: routesNamesT, params:any) =>
 
       return (
         <a
+          style={{ cursor: 'pointer' }}
           onClick={event => {
-            if (
+              if (
                 event.defaultPrevented ||
-              isModifiedEvent(event) ||
-              !isLeftClickEvent(event)
-            ) {
+                  isModifiedEvent(event) ||
+                  !isLeftClickEvent(event)
+              ) {
                 return;
-            }
+              }
 
-            event.preventDefault();
+              event.preventDefault();
 
-            history.push(pathname);
-          }}
+              history.push(
+                substituteParams(pathname, params),
+              );
+            }}
         >
           {this.props.children}
         </a>
