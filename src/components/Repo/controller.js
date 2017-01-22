@@ -4,7 +4,7 @@ import { Effect } from '../../Root';
 import * as RepoModel from './model';
 import { createAction } from 'redux-actions';
 
-type Payload = { author: string, repoName: string };
+export type Payload = { author: string, repoName: string };
 
 export const AC = (payload: Payload) =>
   createAction('Repo');

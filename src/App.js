@@ -33,12 +33,12 @@ class App extends Component<*, Props, *> {
     const path_ = routeObj.path;
 
     const matching = matchPath(pathname, path_);
-
     if (!matching) {
       return <div>404</div>;
     }
+
     const ComponentToRender = routeObj.render;
-    const { params } = matching;
+    const params = matching.params;
 
     return (
       <div>

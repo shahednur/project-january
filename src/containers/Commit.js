@@ -1,13 +1,20 @@
 //@flow
 
 import React from 'react';
-
+import { Controller, Model } from '../Root';
 import { VBox, Element } from 'react-stylesheet';
+
+type Props = {
+  dispatch(action: Controller.Action): void,
+  state: Model.State,
+  params: *,
+};
+
 export default (
-  { repo, commit }: { repo: string, commit: string },
+  { params: { repoName, commit } }: Props,
 ) => (
   <VBox padding="20">
-    <Element>repo: {repo}</Element>
+    <Element>repoName: {repoName}</Element>
     <Element>commit: {commit}</Element>
   </VBox>
 );
