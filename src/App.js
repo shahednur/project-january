@@ -8,8 +8,9 @@ import Navigation from './components/Navigation';
 
 class App extends Component {
   render() {
-    const pathname = this.props.location.pathname;
-    console.log(this.props.location);
+    const { location, dispatch, state } = this.props;
+    const pathname = location.pathname;
+    console.log(location);
 
     const route = R.find(
       pair => matchPath(pathname, pair[1].path),
@@ -27,7 +28,11 @@ class App extends Component {
     return (
       <div>
         <Navigation />
-        <ComponentToRender {...matching.params} />
+        <ComponentToRender
+          {...matching.params}
+          dispatch={dispatch}
+          state={state}
+        />
       </div>
     );
   }

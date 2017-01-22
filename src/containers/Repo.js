@@ -1,10 +1,30 @@
-//@flow
+// @flow
+import React, { PureComponent } from 'react';
 
-import React from 'react';
-import { Element } from 'react-stylesheet';
+import * as RepoController from '../components/Repo/controller';
+import Repo from '../components/Repo';
+import * as Controller from './controller';
+import * as Model from './model';
 
-export default ({ repo }: { repo: string }) => (
-  <Element padding="20">
-    repo: {repo}
-  </Element>
-);
+type Props = {
+  dispatch(action: Controller.Action): void,
+  state: Model.State,
+};
+
+export default class extends PureComponent<void, Props, void> {
+  handleDispatchRepo = (
+    action: RepoController.Action,
+  ): void =>
+    {
+      this.props.dispatch({ type: 'Repo', action });
+    };
+
+  render() {
+    return (
+      <Repo
+        dispatch={this.handleDispatchRepo}
+        state={this.props.state.repo}
+      />
+    );
+  }
+}
