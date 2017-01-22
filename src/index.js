@@ -5,12 +5,11 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import history from './routes/history';
-import store from './containers/store';
 import * as Ship from 'redux-ship';
 import { logControl } from 'redux-ship-logger';
 import * as ShipDevTools from 'redux-ship-devtools';
-import * as Controller from './containers/controller';
-import * as Effect from './containers/effect';
+
+import { store, Controller, Effect } from './Root';
 
 function dispatch(action: Controller.Action): void {
   Ship.run(

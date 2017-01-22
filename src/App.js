@@ -5,31 +5,46 @@ import R from 'ramda';
 import { matchPath } from './lib/router';
 import routes from './routes';
 import Navigation from './components/Navigation';
+import type { State } from './Root/model';
 
-class App extends Component {
+type Props = {|
+  location: {| pathname: string |},
+  dispatch: Function,
+  state: State,
+|};
+
+class App extends Component<*, Props, *> {
   render() {
     const { location, dispatch, state } = this.props;
     const pathname = location.pathname;
-    console.log(location);
 
-    const route = R.find(
-      pair => matchPath(pathname, pair[1].path),
-    )(R.reverse(R.toPairs(routes)));
+    const routePair = R.compose(
+      R.find(pair => !!matchPath(pathname, pair[1].path)),
+      R.reverse,
+      R.toPairs,
+    )(routes);
 
-    if (!route) {
+    if (!routePair) {
       return <div>404</div>;
     }
 
-    console.log('routeMatch', route[0]);
+    const routeObj = routePair[1];
 
-    const matching = matchPath(pathname, route[1].path);
-    const ComponentToRender = route[1].render;
+    const path_ = routeObj.path;
+
+    const matching = matchPath(pathname, path_);
+
+    if (!matching) {
+      return <div>404</div>;
+    }
+    const ComponentToRender = routeObj.render;
+    const { params } = matching;
 
     return (
       <div>
         <Navigation />
         <ComponentToRender
-          params={matching.params}
+          params={params}
           dispatch={dispatch}
           state={state}
         />

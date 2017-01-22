@@ -1,10 +1,9 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React from 'react';
 
 import * as RepoController from '../components/Repo/controller';
 import Repo from '../components/Repo';
-import * as Controller from './controller';
-import * as Model from './model';
+import { Controller, Model } from '../Root';
 
 type Props = {
   dispatch(action: Controller.Action): void,
@@ -12,21 +11,12 @@ type Props = {
   params: { author: string, repoName: string },
 };
 
-export default class extends PureComponent<void, Props, void> {
-  handleDispatchRepo = (
-    action: RepoController.Action,
-  ): void =>
-    {
-      this.props.dispatch({ type: 'Repo', action });
-    };
-
-  render() {
-    return (
-      <Repo
-        dispatch={this.handleDispatchRepo}
-        state={this.props.state.repo}
-        params={this.props.params}
-      />
-    );
-  }
-}
+export default ({ dispatch, state, params }: Props) => (
+  <Repo
+    dispatch={(action: RepoController.Action) => {
+        dispatch(RepoController.AC(action));
+      }}
+    state={state.repo}
+    params={params}
+  />
+);

@@ -1,12 +1,15 @@
 // @flow
 import * as Ship from 'redux-ship';
-import * as Effect from '../../containers/effect';
+import { Effect } from '../../Root';
 import * as RepoModel from './model';
+import { createAction } from 'redux-actions';
 
-export type Action = {
-  type: 'Load',
-  payload: { author: string, repoName: string },
-};
+type Payload = { author: string, repoName: string };
+
+export const AC = (payload: Payload) =>
+  createAction('Repo');
+
+export type Action = { type: 'Load', payload: Payload };
 
 export function* control(
   action: Action,
