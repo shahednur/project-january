@@ -28,7 +28,7 @@ const Link_repo = (
     params,
     children,
   }: $Exact<{
-    params: $Exact<{ repo: string }>,
+    params: $Exact<{ repoName: string, author: string }>,
     children?: any,
   }>,
 ) =>

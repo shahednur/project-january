@@ -1,13 +1,8 @@
 //@flow
 
 import React from 'react';
-import { Element, VBox } from 'react-stylesheet';
-
-const MdText = ({ text }: { text: string }) => (
-  <Element whiteSpace="pre">
-    {text}
-  </Element>
-);
+import { VBox } from 'react-stylesheet';
+import MdText from '../components/MdText';
 
 export default () => (
   <VBox padding="20">

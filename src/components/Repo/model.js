@@ -1,15 +1,18 @@
 // @flow
 
-export type State = { color: ?string, isLoading: boolean };
+export type State = {
+  readmeText: ?string,
+  isLoading: boolean,
+};
 
 export const initialState: State = {
-  color: null,
+  readmeText: null,
   isLoading: false,
 };
 
 export type Commit =
   | { type: 'LoadStart' }
-  | { type: 'LoadSuccess', color: string };
+  | { type: 'LoadSuccess', readmeText: string };
 
 export function reduce(
   state: State,
@@ -21,7 +24,7 @@ export function reduce(
     case 'LoadSuccess':
       return {
         ...state,
-        color: commit.color,
+        readmeText: commit.readmeText,
         isLoading: false,
       };
     default:

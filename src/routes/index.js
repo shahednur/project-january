@@ -8,4 +8,4 @@ export default {
   commit: { ...routes.commit, ...links.commit },
   repo: { ...routes.repo, ...links.repo },
   status: { ...routes.status, ...links.status },
-}
+};

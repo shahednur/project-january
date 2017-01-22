@@ -17,7 +17,11 @@ export default () => (
         home
       </Element>
     </HomeLink>
-    <RepoLink params={{ repo: 'lapanoid/project-january' }}>
+    <RepoLink
+      params={
+        { author: 'lapanoid', repoName: 'project-january' }
+      }
+    >
       <Element colorOnHover="blue">
         this repo link
       </Element>

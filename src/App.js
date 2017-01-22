@@ -29,7 +29,7 @@ class App extends Component {
       <div>
         <Navigation />
         <ComponentToRender
-          {...matching.params}
+          params={matching.params}
           dispatch={dispatch}
           state={state}
         />

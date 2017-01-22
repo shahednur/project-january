@@ -13,8 +13,8 @@ export default {
     render: Commit,
   },
   repo: {
-    path: '/repo/:repo',
-    params: { repo: 'string' },
+    path: '/repo/:author/:repoName',
+    params: { repoName: 'string', author: 'string' },
     render: Repo,
   },
   status: { path: '/status', render: Status },

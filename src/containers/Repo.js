@@ -9,6 +9,7 @@ import * as Model from './model';
 type Props = {
   dispatch(action: Controller.Action): void,
   state: Model.State,
+  params: { author: string, repoName: string },
 };
 
 export default class extends PureComponent<void, Props, void> {
@@ -24,6 +25,7 @@ export default class extends PureComponent<void, Props, void> {
       <Repo
         dispatch={this.handleDispatchRepo}
         state={this.props.state.repo}
+        params={this.props.params}
       />
     );
   }
