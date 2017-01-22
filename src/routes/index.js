@@ -5,9 +5,7 @@ import links from './generated/links';
 
 export default {
   home: { ...routes.home, ...links.home },
-  users: { ...routes.users, ...links.users },
-  userDetails: {
-    ...routes.userDetails,
-    ...links.userDetails,
-  },
-};
+  commit: { ...routes.commit, ...links.commit },
+  repo: { ...routes.repo, ...links.repo },
+  status: { ...routes.status, ...links.status },
+}

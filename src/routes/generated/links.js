@@ -10,29 +10,43 @@ const Link_home = (
     const LinkComp = Link('home');
     return <LinkComp>{children}</LinkComp>;
   };
-const Link_users = (
-  { children }: $Exact<{ children?: any }>,
-) =>
-  {
-    const LinkComp = Link('users');
-    return <LinkComp>{children}</LinkComp>;
-  };
-const Link_userDetails = (
+const Link_commit = (
   {
     params,
     children,
   }: $Exact<{
-    params: $Exact<{ userid: string }>,
+    params: $Exact<{ repo: string, commit: string }>,
     children?: any,
   }>,
 ) =>
   {
-    const LinkComp = Link('userDetails', params);
+    const LinkComp = Link('commit', params);
+    return <LinkComp>{children}</LinkComp>;
+  };
+const Link_repo = (
+  {
+    params,
+    children,
+  }: $Exact<{
+    params: $Exact<{ repo: string }>,
+    children?: any,
+  }>,
+) =>
+  {
+    const LinkComp = Link('repo', params);
+    return <LinkComp>{children}</LinkComp>;
+  };
+const Link_status = (
+  { children }: $Exact<{ children?: any }>,
+) =>
+  {
+    const LinkComp = Link('status');
     return <LinkComp>{children}</LinkComp>;
   };
 
 export default {
   home: { Link: Link_home },
-  users: { Link: Link_users },
-  userDetails: { Link: Link_userDetails },
+  commit: { Link: Link_commit },
+  repo: { Link: Link_repo },
+  status: { Link: Link_status },
 };

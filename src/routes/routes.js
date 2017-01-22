@@ -1,31 +1,21 @@
 //@flow
 
-import React from 'react';
+import Home from '../containers/Home';
+import Commit from '../containers/Commit';
+import Repo from '../containers/Repo';
+import Status from '../containers/Status';
 
 export default {
-  home: {
-    path: '/',
-    render: () => (
-      <div>
-        home
-      </div>
-    ),
+  home: { path: '/', render: Home },
+  commit: {
+    path: '/commit/:repo/:commit',
+    params: { repo: 'string', commit: 'string' },
+    render: Commit,
   },
-  users: {
-    path: '/users',
-    render: () => (
-      <div>
-        users
-      </div>
-    ),
+  repo: {
+    path: '/repo/:repo',
+    params: { repo: 'string' },
+    render: Repo,
   },
-  userDetails: {
-    path: '/users/:userid',
-    params: { userid: 'string' },
-    render: ({ userid }: { userid: string }) => (
-      <div>
-        user: {userid}
-      </div>
-    ),
-  },
+  status: { path: '/status', render: Status },
 }
