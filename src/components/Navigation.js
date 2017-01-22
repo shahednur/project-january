@@ -1,18 +1,24 @@
 //@flow
 
 import React from 'react';
-import Link from '../Link';
+import routes from '../routes';
+
+const {
+  home: { Link: HomeLink },
+  users: { Link: UsersLink },
+  userDetails: { Link: UserDetailsLink },
+} = routes;
 
 export default () => (
   <div>
-    <Link to="home">
+    <HomeLink>
       home
-    </Link>
-    <Link to="users">
+    </HomeLink>
+    <UsersLink>
       users
-    </Link>
-    <Link to="userDetails" params={{ userid: 'qwerty' }}>
+    </UsersLink>
+    <UserDetailsLink params={{ userid: '1' }}>
       user qwerty
-    </Link>
+    </UserDetailsLink>
   </div>
 );

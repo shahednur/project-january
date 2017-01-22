@@ -21,6 +21,7 @@ export default {
   },
   userDetails: {
     path: '/users/:userid',
+    params: { userid: 'string' },
     render: ({ userid }: { userid: string }) => (
       <div>
         user: {userid}

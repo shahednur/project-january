@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import R from 'ramda';
 import { matchPath } from './lib/router';
 import routes from './routes';
-import history from './history';
+import history from './routes/history';
 import Navigation from './components/Navigation';
 
 class App extends Component {
@@ -12,9 +12,9 @@ class App extends Component {
     const pathname = history.location.pathname;
     console.log(history.location);
 
-    const route = R.find(pair => matchPath(pathname, pair[1].path))(
-      R.reverse(R.toPairs(routes)),
-    );
+    const route = R.find(
+      pair => matchPath(pathname, pair[1].path),
+    )(R.reverse(R.toPairs(routes)));
 
     if (!route) {
       return <div>404</div>;
