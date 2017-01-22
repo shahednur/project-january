@@ -7,7 +7,7 @@ import { createAction } from 'redux-actions';
 export type Payload = { author: string, repoName: string };
 
 export const AC = (payload: Payload) =>
-  createAction('Repo');
+  createAction('Repo')(payload);
 
 export type Action = { type: 'Load', payload: Payload };
 

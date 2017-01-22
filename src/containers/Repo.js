@@ -13,8 +13,8 @@ type Props = {
 
 export default ({ dispatch, state, params }: Props) => (
   <Repo
-    dispatch={(action: RepoController.Payload) => {
-        dispatch(RepoController.AC(action));
+    dispatch={(action: RepoController.Action) => {
+        dispatch({ type: 'Repo', action });
       }}
     state={state.repo}
     params={params}

@@ -1,9 +1,9 @@
 declare module 'redux-actions' {
-  declare function createAction(
-    type: string,
+  declare function createAction<NAME, T>(
+    type: NAME,
     payloadCreator?: Function,
     metaCreator?: Function,
-  ): Function;
+  ): (a: T) => { type: NAME, payload: T };
   declare function handleAction(
     type: string,
     reducer: Object | Function,
