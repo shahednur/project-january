@@ -2,7 +2,7 @@
 
 import React from 'react';
 import routes from '../routes';
-
+import { HBox, Element } from 'react-stylesheet';
 const {
   home: { Link: HomeLink },
   users: { Link: UsersLink },
@@ -10,9 +10,11 @@ const {
 } = routes;
 
 export default () => (
-  <div>
+  <HBox justifyContent="space-between">
     <HomeLink>
-      home
+      <Element background="red" color="yellow">
+        home I'm styled!
+      </Element>
     </HomeLink>
     <UsersLink>
       users
@@ -20,5 +22,5 @@ export default () => (
     <UserDetailsLink params={{ userid: '1' }}>
       user qwerty
     </UserDetailsLink>
-  </div>
+  </HBox>
 );
