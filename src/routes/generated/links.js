@@ -15,7 +15,11 @@ const Link_commit = (
     params,
     children,
   }: $Exact<{
-    params: $Exact<{ repo: string, commit: string }>,
+    params: $Exact<{
+      author: string,
+      repoName: string,
+      commit: string,
+    }>,
     children?: any,
   }>,
 ) =>
@@ -28,7 +32,7 @@ const Link_repo = (
     params,
     children,
   }: $Exact<{
-    params: $Exact<{ repoName: string, author: string }>,
+    params: $Exact<{ author: string, repoName: string }>,
     children?: any,
   }>,
 ) =>

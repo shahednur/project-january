@@ -1,21 +1,21 @@
 //@flow
 
 import Home from '../containers/Home';
-import Commit from '../containers/Commit';
+import GitCommit from '../containers/GitCommit';
 import Repo from '../containers/Repo';
 import Status from '../containers/Status';
 
 export default {
   home: { path: '/', render: Home },
   commit: {
-    path: '/commit/:repo/:commit',
-    params: { repo: 'string', commit: 'string' },
-    render: Commit,
+    path: '/commit/:author/:repoName/:commit',
+    params: { author: 'string', repoName: 'string', commit: 'string' },
+    render: GitCommit
   },
   repo: {
     path: '/repo/:author/:repoName',
-    params: { repoName: 'string', author: 'string' },
-    render: Repo,
+    params: { author: 'string', repoName: 'string' },
+    render: Repo
   },
-  status: { path: '/status', render: Status },
+  status: { path: '/status', render: Status }
 }

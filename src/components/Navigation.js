@@ -7,7 +7,7 @@ const {
   home: { Link: HomeLink },
   repo: { Link: RepoLink },
   commit: { Link: CommitLink },
-  status: { Link: StatusLink },
+  status: { Link: StatusLink }
 } = routes;
 
 export default () => (
@@ -17,11 +17,7 @@ export default () => (
         home
       </Element>
     </HomeLink>
-    <RepoLink
-      params={
-        { author: 'lapanoid', repoName: 'project-january' }
-      }
-    >
+    <RepoLink params={{ author: 'lapanoid', repoName: 'project-january' }}>
       <Element colorOnHover="blue">
         this repo link
       </Element>
@@ -29,8 +25,9 @@ export default () => (
     <CommitLink
       params={
         {
-          repo: 'lapanoid/project-january',
-          commit: '4ac1555472bd485dec365f3568f861227099a5bc',
+          author: 'lapanoid',
+          repoName: 'project-january',
+          commit: '4ac1555472bd485dec365f3568f861227099a5bc'
         }
       }
     >
