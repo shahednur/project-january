@@ -1,22 +1,42 @@
 // @flow
 
-export type State = { gitCommitText: ?string, isLoading: boolean };
+export type State =
+  | { status: 'initial' }
+  | { status: 'loading' }
+  | {
+    status: 'loaded',
+    gitCommitText: string,
+    author: string,
+    avatar: string,
+    title: string,
+    date: Date
+  };
 
-export const initialState: State = { gitCommitText: null, isLoading: false };
+export const initialState: State = { status: 'initial' };
 
 export type Commit =
   | { type: 'LoadStart' }
-  | { type: 'LoadSuccess', gitCommitText: string };
+  | {
+    type: 'LoadSuccess',
+    gitCommitText: string,
+    author: string,
+    avatar: string,
+    title: string,
+    date: Date
+  };
 
 export function reduce(state: State, commit: Commit): State {
   switch (commit.type) {
     case 'LoadStart':
-      return { ...state, isLoading: true };
+      return { status: 'loading' };
     case 'LoadSuccess':
       return {
-        ...state,
         gitCommitText: commit.gitCommitText,
-        isLoading: false
+        author: commit.author,
+        avatar: commit.avatar,
+        title: commit.title,
+        date: commit.date,
+        status: 'loaded'
       };
     default:
       return state;

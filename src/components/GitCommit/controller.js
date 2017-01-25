@@ -18,9 +18,17 @@ export function* control(
       const { repoName, author, commit } = action.payload;
       yield* Ship.commit({ type: 'LoadStart' });
       const gitCommitText = yield* Effect.httpRequest(
-        `https://api.github.com/repos/${author}/${repoName}/git/commits/${commit}`
+        `https://api.github.com/repos/${author}/${repoName}/commits/${commit}`
       );
-      yield* Ship.commit({ type: 'LoadSuccess', gitCommitText });
+      const parsed = JSON.parse(gitCommitText);
+      yield* Ship.commit({
+        type: 'LoadSuccess',
+        gitCommitText,
+        author: parsed.commit.committer.name,
+        avatar: parsed.author.avatar_url,
+        title: parsed.commit.message,
+        date: new Date(parsed.commit.committer.date)
+      });
       return;
     }
     default:

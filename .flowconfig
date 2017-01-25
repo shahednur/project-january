@@ -1,5 +1,7 @@
 [ignore]
 .*/fbjs/lib/partitionObjectByKey
+.*/node_modules/react-timeago/lib/formatters/buildFormatter.*
+.*/language-strings/.*
 [include]
 
 [libs]
