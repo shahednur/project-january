@@ -24,7 +24,7 @@ export function* control(
       yield* Ship.commit({
         type: 'LoadSuccess',
         gitCommitText,
-        author: parsed.commit.committer.name,
+        author: parsed.author.login,
         avatar: parsed.author.avatar_url,
         title: parsed.commit.message,
         date: new Date(parsed.commit.committer.date)

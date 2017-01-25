@@ -56,10 +56,10 @@ const InlineBlock = ({ children, ...rest }) => (
   </Element>
 );
 
-const AuthorLink = ({ date }: { date: Date }) => (
+const AuthorLink = ({ author, date }: { author: string, date: Date }) => (
   <Element color={MiddleBoldColor} fontSize="12px">
     <InlineBlock fontWeight={600}>
-      lapanoid
+      {author}
     </InlineBlock>
     <InlineBlock>
       committed
@@ -140,7 +140,7 @@ const GhCommitCard = (
     </Element>
     <VBox justifyContent="space-between">
       <GhCommitTitle title={title} author={author} commit="" repoName="" />
-      <AuthorLink date={date} />
+      <AuthorLink date={date} author={author} />
     </VBox>
   </HBox>
 );
