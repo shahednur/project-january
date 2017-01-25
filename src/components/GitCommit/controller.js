@@ -3,6 +3,7 @@ import * as Ship from 'redux-ship';
 import { Effect } from '../../Root';
 import * as GitCommitModel from './model';
 import { createAction } from 'redux-actions';
+import { getCommits } from '../GitCommitCard';
 
 export type Payload = { repoName: string, author: string, commit: string };
 
@@ -21,13 +22,11 @@ export function* control(
         `https://api.github.com/repos/${author}/${repoName}/commits/${commit}`
       );
       const parsed = JSON.parse(gitCommitText);
+
       yield* Ship.commit({
         type: 'LoadSuccess',
         gitCommitText,
-        author: parsed.author.login,
-        avatar: parsed.author.avatar_url,
-        title: parsed.commit.message,
-        date: new Date(parsed.commit.committer.date)
+        commit: getCommits(parsed)
       });
       return;
     }

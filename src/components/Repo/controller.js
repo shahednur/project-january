@@ -4,7 +4,7 @@ import R from 'ramda';
 import { Effect } from '../../Root';
 import * as RepoModel from './model';
 import { createAction } from 'redux-actions';
-
+import { getCommits } from '../GitCommitCard';
 export type Payload = { author: string, repoName: string, branch: string };
 
 export const AC = (payload: Payload) => createAction('Repo')(payload);
@@ -33,9 +33,11 @@ export function* control(
       );
 
       const parsed = JSON.parse(gitRepoText);
+
       yield* Ship.commit({
         type: 'LoadSuccess',
         gitRepoText,
+        commits: parsed.map(getCommits),
         branches: branchesNames
       });
       return;

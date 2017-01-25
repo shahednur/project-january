@@ -1,29 +1,15 @@
 // @flow
-
+import type { Props as GitCommitCardType } from '../GitCommitCard';
 export type State =
   | { status: 'initial' }
   | { status: 'loading' }
-  | {
-    status: 'loaded',
-    gitCommitText: string,
-    author: string,
-    avatar: string,
-    title: string,
-    date: Date
-  };
+  | { status: 'loaded', gitCommitText: string, commit: GitCommitCardType };
 
 export const initialState: State = { status: 'initial' };
 
 export type Commit =
-  | { type: 'LoadStart' }
-  | {
-    type: 'LoadSuccess',
-    gitCommitText: string,
-    author: string,
-    avatar: string,
-    title: string,
-    date: Date
-  };
+  | {| type: 'LoadStart' |}
+  | {| type: 'LoadSuccess', gitCommitText: string, commit: GitCommitCardType |};
 
 export function reduce(state: State, commit: Commit): State {
   switch (commit.type) {
@@ -32,10 +18,7 @@ export function reduce(state: State, commit: Commit): State {
     case 'LoadSuccess':
       return {
         gitCommitText: commit.gitCommitText,
-        author: commit.author,
-        avatar: commit.avatar,
-        title: commit.title,
-        date: commit.date,
+        commit: commit.commit,
         status: 'loaded'
       };
     default:

@@ -1,5 +1,7 @@
 // @flow
 
+import type { Props as GitCommitCardType } from '../GitCommitCard';
+
 export type State =
   | { status: 'initial', branches: Array<string>, branch: string }
   | { status: 'loading', branches: Array<string>, branch: string }
@@ -7,7 +9,8 @@ export type State =
     status: 'loaded',
     gitRepoText: string,
     branches: Array<string>,
-    branch: string
+    branch: string,
+    commits: Array<GitCommitCardType>
   };
 
 export const initialState: State = {
@@ -17,8 +20,13 @@ export const initialState: State = {
 };
 
 export type Commit =
-  | { type: 'LoadStart', branch: string }
-  | { type: 'LoadSuccess', gitRepoText: string, branches: Array<string> };
+  | {| type: 'LoadStart', branch: string |}
+  | {|
+    type: 'LoadSuccess',
+    gitRepoText: string,
+    branches: Array<string>,
+    commits: Array<GitCommitCardType>
+  |};
 
 export function reduce(state: State, commit: Commit): State {
   switch (commit.type) {
@@ -33,7 +41,8 @@ export function reduce(state: State, commit: Commit): State {
         status: 'loaded',
         branch: state.branch,
         gitRepoText: commit.gitRepoText,
-        branches: commit.branches
+        branches: commit.branches,
+        commits: commit.commits
       };
     default:
       return state;

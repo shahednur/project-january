@@ -1,10 +1,12 @@
 // @flow
+import R from 'ramda';
 import React from 'react';
 import { Element } from 'react-stylesheet';
 import * as RepoController from './controller';
 import * as RepoModel from './model';
-import MdText from '../MdText';
 import Dropdown from 'react-dropdown';
+import GitCommitCard from '../GitCommitCard';
+
 import './dropdown.css';
 
 type Props = {
@@ -26,21 +28,21 @@ export default class extends React.Component<*, Props, *> {
         {state.status === 'loading' && 'Loading...'}
         {
           state.status === 'loaded' && (
-            <div>
-              <Element height={30}>
-                <Dropdown
-                  options={state.branches}
-                  onChange={({ value }) => {
-                    dispatch({
+              <div>
+                <Element height={30}>
+                  <Dropdown
+                    options={state.branches}
+                    onChange={({ value }) => {
+                      dispatch({
                         type: 'Load',
-                      payload: { ...params, branch: value }
+                        payload: { ...params, branch: value }
                       });
                     }}
                     value={state.branch}
                     placeholder="Select branch"
                   />
                 </Element>
-                <MdText text={state.gitRepoText} />
+                {R.map(props => <GitCommitCard {...props} />)(state.commits)}
               </div>
             )
         }
@@ -48,3 +50,4 @@ export default class extends React.Component<*, Props, *> {
     );
   }
 }
+//  <MdText text={state.gitRepoText} />
