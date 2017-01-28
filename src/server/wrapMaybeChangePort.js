@@ -3,12 +3,18 @@
 import detect from 'detect-port';
 import getProcessForPort from 'react-dev-utils/getProcessForPort';
 import prompt from 'react-dev-utils/prompt';
-import clearConsole from 'react-dev-utils/clearConsole';
+
 import chalk from 'chalk';
 
 const DEFAULT_PORT = process.env.PORT || 3000;
 
-export default (run: Function, { isInteractive }: { isInteractive: boolean }) =>
+export default (
+  run: Function,
+  {
+    isInteractive,
+    clearConsole
+  }: { isInteractive: boolean, clearConsole: Function }
+) =>
   async () => {
     // We attempt to use the default port but if it is busy, we offer the user to
     // run on a different port. `detect()` Promise resolves to the next free port.

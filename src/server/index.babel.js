@@ -16,15 +16,14 @@ import historyApiFallback from 'connect-history-api-fallback';
 import httpProxyMiddleware from 'http-proxy-middleware';
 import clearConsole from 'react-dev-utils/clearConsole';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
-import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
+
 import openBrowser from 'react-dev-utils/openBrowser';
-import pathExists from 'path-exists';
+
 import config from '../../config/webpack.config.dev';
 import paths from '../../config/paths';
+import formatMessagesOnCompilation from './formatMessagesOnCompilation';
 import wrapMaybeChangePort from './wrapMaybeChangePort';
 
-const useYarn = pathExists.sync(paths.yarnLockFile);
-const cli = useYarn ? 'yarn' : 'npm';
 //$FlowIssue
 const isInteractive = process.stdout.isTTY;
 
@@ -33,13 +32,12 @@ if (!checkRequiredFiles([ paths.appHtml, paths.appIndexJs ])) {
   process.exit(1);
 }
 
-let compiler;
-let handleCompile;
-
 const setupCompiler = (host, port, protocol) => {
+  const handleCompile = () => {
+  };
   // "Compiler" is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
-  compiler = webpack(config, handleCompile);
+  const compiler = webpack(config, handleCompile);
 
   // "invalid" event fires when you have changed a file, and Webpack is
   // recompiling a bundle. WebpackDevServer takes care to pause serving the
@@ -52,77 +50,22 @@ const setupCompiler = (host, port, protocol) => {
     console.log('Compiling...');
   });
 
-  let isFirstCompile = true;
+  let state = { isFirstCompile: true };
 
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
-  compiler.plugin('done', stats => {
-    if (isInteractive) {
-      clearConsole();
-    }
-
-    // We have switched off the default Webpack output in WebpackDevServer
-    // options so we are going to "massage" the warnings and errors and present
-    // them in a readable focused way.
-    const messages = formatWebpackMessages(stats.toJson({}, true));
-    const isSuccessful = !messages.errors.length && !messages.warnings.length;
-    const showInstructions = isSuccessful && (isInteractive || isFirstCompile);
-
-    if (isSuccessful) {
-      console.log(chalk.green('Compiled successfully!'));
-    }
-
-    if (showInstructions) {
-      console.log();
-      console.log('The app is running at:');
-      console.log();
-      console.log(
-        '  ' + chalk.cyan(protocol + '://' + host + ':' + port + '/')
-      );
-      console.log();
-      console.log('Note that the development build is not optimized.');
-      console.log(
-        'To create a production build, use ' +
-          chalk.cyan(cli + ' run build') +
-          '.'
-      );
-      console.log();
-      isFirstCompile = false;
-    }
-
-    // If errors exist, only show errors.
-    if (messages.errors.length) {
-      console.log(chalk.red('Failed to compile.'));
-      console.log();
-      messages.errors.forEach(message => {
-        console.log(message);
-        console.log();
-      });
-      return;
-    }
-
-    // Show warnings if no errors were found.
-    if (messages.warnings.length) {
-      console.log(chalk.yellow('Compiled with warnings.'));
-      console.log();
-      messages.warnings.forEach(message => {
-        console.log(message);
-        console.log();
-      });
-      // Teach some ESLint tricks.
-      console.log('You may use special comments to disable some warnings.');
-      console.log(
-        'Use ' +
-          chalk.yellow('// eslint-disable-next-line') +
-          ' to ignore the next line.'
-      );
-      console.log(
-        'Use ' +
-          chalk.yellow('/* eslint-disable */') +
-          ' to ignore all warnings in a file.'
-      );
-    }
-  });
+  compiler.plugin(
+    'done',
+    formatMessagesOnCompilation({
+      state,
+      protocol,
+      host,
+      port,
+      isInteractive,
+      clearConsole
+    })
+  );
+  return compiler;
 };
 
 // We need to provide a custom onError function for httpProxyMiddleware.
@@ -239,7 +182,7 @@ const addMiddleware = devServer => {
   devServer.use(devServer.middleware);
 };
 
-const runDevServer = (host, port, protocol) => {
+const runDevServer = (compiler, host, port, protocol) => {
   const devServer = new WebpackDevServer(compiler, {
     // Enable gzip compression of generated files.
     compress: true,
@@ -305,8 +248,8 @@ const runDevServer = (host, port, protocol) => {
 const run = port => {
   const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
   const host = process.env.HOST || 'localhost';
-  setupCompiler(host, port, protocol);
-  runDevServer(host, port, protocol);
+  const compiler = setupCompiler(host, port, protocol);
+  runDevServer(compiler, host, port, protocol);
 };
 
-wrapMaybeChangePort(run, { isInteractive })();
+wrapMaybeChangePort(run, { isInteractive, clearConsole })();
