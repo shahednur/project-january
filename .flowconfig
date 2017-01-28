@@ -9,6 +9,7 @@ flow/
 [options]
 emoji=true
 
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 suppress_type=$FixMe
