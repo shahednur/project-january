@@ -60,14 +60,16 @@ app.ws.use(
     const send = sendFct(websocket);
     const createStatsMessage = create('STATS');
 
-    const interval = setInterval(
-      () => {
-        send(createStatsMessage(getStats()));
-      },
-      5000
-    );
-    websocket.on('end', message => {
+    const run = () => {
+      send(createStatsMessage(getStats()));
+    };
+
+    run();
+
+    const interval = setInterval(run, 5000);
+    websocket.on('close', message => {
       clearInterval(interval);
+      console.log('close stats');
     });
   })
 );
