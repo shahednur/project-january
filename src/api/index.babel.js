@@ -10,6 +10,7 @@ const app = websockify(new Koa());
 
 app.ws.use(
   route.all('/', ({ websocket }) => {
+    console.log('1');
     const send = json => websocket.send(JSON.stringify(json));
     const usualCIText = [
       'git clone repo xxx',
@@ -43,6 +44,7 @@ app.ws.use(
 );
 
 app.use(async (ctx, next) => {
+  console.log('0');
   try {
     await next();
   } catch (err) {
@@ -52,6 +54,7 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async ctx => {
+  console.log('1');
   ctx.body = { result: 'lol' }; // ctx instead of this
 });
 
