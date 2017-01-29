@@ -4,6 +4,7 @@ import Koa from 'koa';
 import route from 'koa-route';
 import Kefir from 'kefir';
 import websockify from 'koa-websocket';
+import { create } from './messages';
 
 const app = websockify(new Koa());
 
@@ -18,21 +19,25 @@ app.ws.use(
       'run app'
     ];
 
+    const createCIMessage = create('CI');
+    const createSystemMessage = create('SYSTEM');
+
     Kefir.sequentially(1000, usualCIText).observe({
       value(value) {
-        send({ type: 'CI', value });
+        send(createCIMessage(value));
       },
       error(error) {
         send(error);
       },
       end() {
-        send({ type: 'CI', value: 'end' });
+        send(createCIMessage('end'));
       }
     });
-    send({ type: 'SYSTEM', value: 'Hello World' });
+
+    send(createSystemMessage('Hello World'));
     websocket.on('message', message => {
       console.log(message);
-      send({ type: 'SYSTEM', value: message + '!' });
+      send(createSystemMessage(message + '!'));
     });
   })
 );

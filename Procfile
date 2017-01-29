@@ -1,1 +1,2 @@
-web: ls node_modules && npm run start
+web: npm run start
+api: npm run start-api
