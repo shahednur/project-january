@@ -8,10 +8,17 @@ import { create } from './messages';
 
 const app = websockify(new Koa());
 
+const sendFct = websocket => json => {
+  try {
+    websocket.send(JSON.stringify(json));
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
 app.ws.use(
-  route.all('/', ({ websocket }) => {
-    console.log('1');
-    const send = json => websocket.send(JSON.stringify(json));
+  route.all('/commit', ({ websocket }) => {
+    const send = sendFct(websocket);
     const usualCIText = [
       'git clone repo xxx',
       'yarn/npm install',
@@ -21,7 +28,6 @@ app.ws.use(
     ];
 
     const createCIMessage = create('CI');
-    const createSystemMessage = create('SYSTEM');
 
     Kefir.sequentially(1000, usualCIText).observe({
       value(value) {
@@ -34,11 +40,16 @@ app.ws.use(
         send(createCIMessage('end'));
       }
     });
+  })
+);
 
-    send(createSystemMessage('Hello World'));
+app.ws.use(
+  route.all('/ping', ({ websocket }) => {
+    const send = sendFct(websocket);
     websocket.on('message', message => {
+      const createSystemMessage = create('SYSTEM');
       console.log(message);
-      send(createSystemMessage(message + '!'));
+      send(createSystemMessage(message));
     });
   })
 );
