@@ -11,13 +11,13 @@ import * as ShipDevTools from 'redux-ship-devtools';
 
 import { store, Controller, Effect } from './Root';
 
+console.log(process.env);
+
 function dispatch(action: Controller.Action): void {
   Ship.run(
     Effect.run,
     store,
-    ShipDevTools.inspect(logControl(Controller.control))(
-      action,
-    ),
+    ShipDevTools.inspect(logControl(Controller.control))(action)
   );
 }
 
@@ -30,7 +30,7 @@ const render = () => {
       dispatch={dispatch}
       state={store.getState()}
     />,
-    document.getElementById('root'),
+    document.getElementById('root')
   );
 };
 
