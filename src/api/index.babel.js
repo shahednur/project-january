@@ -5,6 +5,7 @@ import route from 'koa-route';
 import Kefir from 'kefir';
 import websockify from 'koa-websocket';
 import { create } from './messages';
+import getStats from './stats';
 
 const app = websockify(new Koa());
 
@@ -54,19 +55,30 @@ app.ws.use(
   })
 );
 
+app.ws.use(
+  route.all('/stats', ({ websocket }) => {
+    const send = sendFct(websocket);
+    const createStatsMessage = create('STATS');
+
+    const interval = setInterval(
+      () => {
+        send(createStatsMessage(getStats()));
+      },
+      5000
+    );
+    websocket.on('end', message => {
+      clearInterval(interval);
+    });
+  })
+);
+
 app.use(async (ctx, next) => {
-  console.log('0');
   try {
     await next();
   } catch (err) {
     ctx.body = { message: err.message };
     ctx.status = err.status || 500;
   }
-});
-
-app.use(async ctx => {
-  console.log('1');
-  ctx.body = { result: 'lol' }; // ctx instead of this
 });
 
 try {
