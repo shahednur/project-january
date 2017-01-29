@@ -55,5 +55,9 @@ app.use(async ctx => {
   ctx.body = { result: 'lol' }; // ctx instead of this
 });
 
-console.log('Api listening 4000 ...');
-app.listen(4000);
+try {
+  app.listen(4000);
+  console.log('Api listening 4000 ...');
+} catch (ex) {
+  console.log(ex);
+}
