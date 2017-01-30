@@ -3,7 +3,7 @@
 import Home from '../containers/Home';
 import GitCommit from '../containers/GitCommit';
 import Repo from '../containers/Repo';
-import Status from '../containers/Status';
+import Stats from '../containers/Stats';
 
 export default {
   home: { path: '/', render: Home },
@@ -17,5 +17,5 @@ export default {
     params: { author: 'string', repoName: 'string' },
     render: Repo
   },
-  status: { path: '/status', render: Status }
-}
+  status: { path: '/stats', render: Stats }
+};

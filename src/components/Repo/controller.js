@@ -1,5 +1,5 @@
 // @flow
-import * as Ship from 'redux-ship';
+import * as Ship from '../../redux-ship';
 import R from 'ramda';
 import { Effect } from '../../Root';
 import * as RepoModel from './model';

@@ -69,7 +69,7 @@ export default (
         console.log(message);
         console.log();
       });
-      throw Error('Failed to compile.');
+      // throw Error('Failed to compile.');
     }
 
     // Show warnings if no errors were found.

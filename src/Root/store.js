@@ -2,9 +2,12 @@
 import { applyMiddleware, createStore } from 'redux';
 import createLogger from 'redux-logger';
 import * as Model from './model';
+import WsMiddleWare from './middlewares/ws';
 
+//$FlowIssue
 export default createStore(
   Model.reduce,
   Model.initialState,
-  applyMiddleware(createLogger()),
+  //$FlowIssue
+  applyMiddleware(WsMiddleWare({}), createLogger())
 );

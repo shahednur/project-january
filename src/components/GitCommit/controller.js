@@ -1,5 +1,5 @@
 // @flow
-import * as Ship from 'redux-ship';
+import * as Ship from '../../redux-ship';
 import { Effect } from '../../Root';
 import * as GitCommitModel from './model';
 import { createAction } from 'redux-actions';

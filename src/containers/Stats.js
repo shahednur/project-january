@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 
-import * as RepoController from '../components/Repo/controller';
-import Repo from '../components/Repo/index';
+import * as StatsController from '../components/Stats/controller';
+import Stats from '../components/Stats';
 import { Controller, Model } from '../Root';
 
 type Props = {
@@ -12,11 +12,11 @@ type Props = {
 };
 
 export default ({ dispatch, state, params }: Props) => (
-  <Repo
-    dispatch={(action: RepoController.Action) => {
-      dispatch({ type: 'Repo', action });
+  <Stats
+    dispatch={(action: StatsController.Action) => {
+      dispatch({ type: 'Stats', action });
     }}
-    state={state.repo}
+    state={state.stats}
     params={params}
   />
 );
