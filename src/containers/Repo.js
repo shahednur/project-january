@@ -2,7 +2,7 @@
 import React from 'react';
 
 import * as RepoController from '../components/Repo/controller';
-import Repo from '../components/Repo/index';
+import Repo from '../components/Repo';
 import { Controller, Model } from '../Root';
 
 type Props = {

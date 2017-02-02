@@ -36,24 +36,12 @@ import { createMessageAction } from '../middlewares/ws';
 // };
 //
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-var generator = async function*() {
-  var i = 0;
-  while (true) {
-    console.log(i);
-    await delay(Math.random() * 1000);
-    yield i++;
-  }
-};
-
 export type Effect =
   | { type: 'HttpRequest', url: string }
   | { type: 'wsCreate', ws: string }
   | { type: 'wsGet', data?: Object };
 
 let iterator;
-let source;
 export const run = ({ dispatch }: { dispatch: Function }) => async (
   effect: Effect
 ): any => {

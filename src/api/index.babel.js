@@ -17,8 +17,7 @@ const sendFct = websocket => json => {
   }
 };
 
-app.ws.use(
-  route.all('/commit', ({ websocket }) => {
+app.ws.use(route.all('/commit', ({ websocket }) => {
     const send = sendFct(websocket);
     const usualCIText = [
       'git clone repo xxx',
@@ -41,22 +40,18 @@ app.ws.use(
         send(createCIMessage('end'));
       }
     });
-  })
-);
+  }));
 
-app.ws.use(
-  route.all('/ping', ({ websocket }) => {
+app.ws.use(route.all('/ping', ({ websocket }) => {
     const send = sendFct(websocket);
     websocket.on('message', message => {
       const createSystemMessage = create('SYSTEM');
       console.log(message);
       send(createSystemMessage(message));
     });
-  })
-);
+  }));
 
-app.ws.use(
-  route.all('/stats', ({ websocket }) => {
+app.ws.use(route.all('/stats', ({ websocket }) => {
     const send = sendFct(websocket);
     const createStatsMessage = create('STATS');
 
@@ -66,13 +61,12 @@ app.ws.use(
 
     run();
 
-    const interval = setInterval(run, 5000);
+    const interval = setInterval(run, 1000);
     websocket.on('close', message => {
       clearInterval(interval);
       console.log('close stats');
     });
-  })
-);
+  }));
 
 app.use(async (ctx, next) => {
   try {
