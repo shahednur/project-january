@@ -19,7 +19,7 @@ function dispatch(action: Controller.Action): void {
 // setTimeout(
 //   () => {
 //     store.dispatch(
-//       createMessageAction('ws://localhost:3000/ping')({ message: 'ping' })
+//       createMessageAction('ws://ping')({ message: 'ping' })
 //     );
 //   },
 //   5000

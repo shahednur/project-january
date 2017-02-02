@@ -17,7 +17,7 @@ export function* control(
     case 'Load': {
       yield* Ship.commit({ type: 'LoadStart' });
 
-      const wsListen = yield* Effect.wsCreate('ws://localhost:3000/stats');
+      const wsListen = yield* Effect.wsCreate(`ws://${location.host}/stats`);
 
       while (1) {
         /*wsListen.getConnection()*/

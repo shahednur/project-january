@@ -3,39 +3,6 @@ import type { Ship } from 'redux-ship';
 import { call } from 'redux-ship';
 import { createMessageAction } from '../middlewares/ws';
 
-// const delay = (n: number) =>
-//   new Promise(resolve => setTimeout(() => resolve(), n));
-
-// const test = (n: number) => async () => {
-//   await delay(1500);
-//   return n;
-// };
-//
-// async function* createAsyncIterable(syncIterable) {
-//   for (const elem of syncIterable) {
-//     const res = await elem();
-//     yield res;
-//   }
-// }
-// const connection = dispatch(
-//   createMessageAction(ws)({
-//     message: data ? JSON.stringify(data) : undefined
-//   })
-// );
-
-// const iterator = {
-//   next() {
-//     if (!deferred) {
-//       deferred = {};
-//       deferred.promise = new Promise(
-//         resolve => deferred.resolve = resolve
-//       );
-//     }
-//     return deferred.promise;
-//   }
-// };
-//
-
 export type Effect =
   | { type: 'HttpRequest', url: string }
   | { type: 'wsCreate', ws: string }
