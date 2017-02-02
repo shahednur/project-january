@@ -1,8 +1,9 @@
 // @flow
-import * as Ship from '../../redux-ship';
+
+import * as Ship from 'redux-ship';
 import { Effect } from '../../Root';
-import * as StatsModel from './model';
 import { createAction } from 'redux-actions';
+import * as StatsModel from './model';
 export type Payload = {};
 
 export const AC = (payload: Payload) => createAction('Stats')(payload);
@@ -16,19 +17,19 @@ export function* control(
     case 'Load': {
       yield* Ship.commit({ type: 'LoadStart' });
 
-      const iterator = yield* Effect.wsRequest('ws://localhost:3000/stats');
-      var run = async function() {
-        for await (let n of iterator()) {
-          console.log(n);
-        }
-      };
+      const wsListen = yield* Effect.wsCreate('ws://localhost:3000/stats');
 
-      run();
-      // while (1) {
-      //   const statsText = yield await iterator.next();
-      //   console.log(statsText);
-      //   yield* Ship.commit({ type: 'LoadSuccess', statsText });
-      // }
+      while (1) {
+        /*wsListen.getConnection()*/
+        const { done, value } = yield* Effect.wsGet();
+
+        yield* Ship.commit({
+          type: 'LoadSuccess',
+          statsText: JSON.stringify(value, null, 2)
+        });
+      }
+
+      return;
     }
     default:
       return;

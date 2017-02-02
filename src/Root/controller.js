@@ -1,5 +1,5 @@
 // @flow
-import * as Ship from '../redux-ship';
+import * as Ship from 'redux-ship';
 import * as RepoController from '../components/Repo/controller';
 import * as StatsController from '../components/Stats/controller';
 import * as GitCommitController from '../components/GitCommit/controller';
