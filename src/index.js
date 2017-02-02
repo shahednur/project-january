@@ -1,4 +1,5 @@
 //@flow
+console.log('start');
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,14 +16,14 @@ function dispatch(action: Controller.Action): void {
   Ship.run(Effect.run(store), store, logControl(Controller.control)(action));
 }
 
-setTimeout(
-  () => {
-    const t = store.dispatch(
-      createMessageAction('ws://localhost:3000/ping')({ message: 'ping' })
-    );
-  },
-  1000
-);
+// setTimeout(
+//   () => {
+//     store.dispatch(
+//       createMessageAction('ws://localhost:3000/ping')({ message: 'ping' })
+//     );
+//   },
+//   5000
+// );
 
 console.log(store.getState());
 
