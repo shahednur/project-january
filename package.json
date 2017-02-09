@@ -1,6 +1,5 @@
 {
   "name": "project-january",
-  "version": "0.1.0",
   "proxy": "http://localhost:4000",
   "private": true,
   "dependencies": {
@@ -83,7 +82,8 @@
     "start-web": "NODE_ENV=development node src/server/index.js",
     "start": "concurrently --kill-others \"npm run start-web\" \"npm run start-api\"",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "catl": "node_modules/.bin/catl"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -114,10 +114,18 @@
       "react-app"
     ]
   },
+  "engines": {
+    "node": "6.9.1"
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
   "devDependencies": {
+    "catl": "^1.7.12",
     "flow-bin": "^0.38.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lapanoid/project-january.git"
   }
 }
